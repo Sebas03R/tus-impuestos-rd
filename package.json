@@ -1,0 +1,15 @@
+{
+  "name": "tus-impuestos-rd",
+  "private": true,
+  "packageManager": "pnpm@11.24.0",
+  "scripts": {
+    "dev": "pnpm -C apps/web dev",
+    "build": "pnpm -C apps/web build",
+    "lint": "pnpm -C apps/web lint",
+    "typecheck": "pnpm -C apps/web typecheck",
+    "test": "pnpm -C apps/web test",
+    "e2e": "pnpm -C tests/e2e test",
+    "db:up": "docker compose up -d db",
+    "db:migrate": "cd services/pipeline && uv run tirds db upgrade"
+  }
+}

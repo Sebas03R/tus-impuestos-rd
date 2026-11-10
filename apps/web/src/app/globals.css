@@ -1,0 +1,291 @@
+@import "tailwindcss";
+
+/*
+ * Tus Impuestos RD — cartel de protesta ciudadana.
+ * Papel blanco, tinta negra, rojo pancarta y amarillo de etiqueta de precio (la góndola del súper).
+ * Contraste verificado (WCAG 2.2): ink/blanco 18.9:1 · ink-muted/blanco 8.9:1 · red-text/blanco 7.1:1 ·
+ * blanco/red 5.3:1 · ink/yellow 13.2:1 · navy/blanco 13.5:1 · navy/yellow-soft 12.1:1.
+ * El amarillo nunca se usa como color de texto sobre blanco: solo como fondo con tinta encima.
+ */
+@theme {
+  --color-ink: #111111;
+  --color-ink-muted: #4a4a4a;
+  --color-paper: #ffffff;
+  --color-red: #d21f1f;
+  --color-red-text: #b0151b;
+  --color-red-soft: #fde8e6;
+  --color-yellow: #ffd400;
+  --color-yellow-soft: #fff3b0;
+  --color-gauge-ok: #d9d9d9;
+  /* Nombres heredados: los componentes existentes los usan como "enlace" y "titular". */
+  --color-navy: #002d62;
+  --color-navy-deep: #111111;
+  --color-sky: #fff3b0;
+  --color-sky-strong: #ffe36b;
+  --color-mist: #f2f2f2;
+  --color-line: #cfcfcf;
+  --color-green: #17683f;
+  --color-green-soft: #e6f4ec;
+  --color-amber: #b66b09;
+  --color-amber-text: #8f5205;
+  --color-amber-soft: #fff4e0;
+
+  --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-atkinson-mono), ui-monospace, monospace;
+  --font-display: var(--font-shoulders), "Arial Narrow", ui-sans-serif, sans-serif;
+  --font-stencil: var(--font-stencil-face), var(--font-shoulders), "Arial Narrow", sans-serif;
+
+  --radius-card: 0px;
+  --shadow-card: none;
+  --shadow-raise: 6px 6px 0 #111111;
+}
+
+@layer base {
+  html {
+    /* Base de 18 px que respeta el tamaño de letra del usuario (rem). */
+    font-size: 112.5%;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    background: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    /* Nombres de archivo, códigos y URL largas de las fuentes no deben desbordar en 320 px. */
+    overflow-wrap: break-word;
+  }
+  /* Los elementos de una cuadrícula no deben ensancharla con palabras largas (nombres reales de obras). */
+  .grid > * {
+    min-width: 0;
+  }
+  h1, h2, h3, h4 {
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+  /* Titulares en Big Shoulders (condensada, de cartel); el texto corrido sigue en Atkinson. */
+  h1, h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-optical-sizing: auto;
+  }
+  h1 { line-height: 1; letter-spacing: -0.005em; }
+  h2 { line-height: 1.05; letter-spacing: 0; }
+  h3 { line-height: 1.3; }
+  p, li { text-wrap: pretty; }
+  a { text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  /* Foco: tinta negra con halo amarillo; se ve sobre blanco, rojo, amarillo y negro. */
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 7px var(--color-yellow);
+  }
+  ::selection { background: var(--color-yellow); color: var(--color-ink); }
+  summary { cursor: pointer; }
+  summary::-webkit-details-marker { display: none; }
+  table { border-collapse: collapse; }
+  .tabular { font-variant-numeric: tabular-nums; }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 74rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 768px) {
+    .container-page { padding-inline: 1.5rem; }
+  }
+  .card {
+    background: #ffffff;
+    border: 2px solid var(--color-ink);
+  }
+  .card-raise {
+    background: #ffffff;
+    border: 3px solid var(--color-ink);
+    box-shadow: var(--shadow-raise);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0.625rem 1.25rem;
+    border: 2px solid var(--color-ink);
+    font-weight: 800;
+    line-height: 1.2;
+    text-decoration: none;
+    transition: background-color 120ms ease-out, transform 80ms ease-out, box-shadow 80ms ease-out;
+    cursor: pointer;
+  }
+  /* Botones que se hunden al presionar (respuesta inmediata en pointer-down). */
+  .btn-primary,
+  .btn-secondary { box-shadow: 4px 4px 0 var(--color-ink); }
+  .btn-primary:active,
+  .btn-secondary:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--color-ink); }
+  .btn-quiet:active { transform: translateY(1px); }
+  .btn-primary { background: var(--color-red); color: #ffffff; }
+  .btn-primary:hover { background: #b51717; }
+  .btn-secondary { background: #ffffff; color: var(--color-ink); }
+  .btn-secondary:hover { background: var(--color-yellow); }
+  .btn-quiet { background: #ffffff; color: var(--color-ink); }
+  .btn-quiet:hover { background: var(--color-yellow-soft); }
+  .field {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.625rem 0.875rem;
+    border: 2px solid var(--color-ink);
+    background: #ffffff;
+    color: var(--color-ink);
+  }
+  .label { display: block; font-weight: 700; margin-bottom: 0.375rem; color: var(--color-ink); }
+  .eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+  /* Etiqueta de pancarta: bloque rojo con texto blanco en mayúsculas. */
+  .kicker {
+    display: inline-block;
+    background: var(--color-red);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.125rem;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.6rem 0.35rem;
+  }
+  .kicker-ink { background: var(--color-ink); color: var(--color-yellow); }
+  /* Titular de portada en stencil: la pintada de protesta. */
+  .hero-title {
+    font-family: var(--font-stencil);
+    font-weight: 900;
+    font-size: clamp(3.25rem, 14vw, 7.5rem);
+    line-height: 0.96;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+  .display-2 {
+    font-size: clamp(2.25rem, 7vw, 4rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+  /* Etiquetas de góndola con el agujero del gancho. */
+  .price-tag {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.9rem 1rem 0.9rem 2.1rem;
+    border: 3px solid var(--color-ink);
+  }
+  .price-tag::before {
+    content: "";
+    position: absolute;
+    left: 0.7rem;
+    top: 1.05rem;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 999px;
+    border: 3px solid var(--color-ink);
+    background: #ffffff;
+  }
+  .price-tag-ref { background: var(--color-yellow); color: var(--color-ink); }
+  .price-tag-paid { background: var(--color-red); color: #ffffff; }
+  /* Aguja del medidor: arranca en ×1 y gira hasta el valor (sin rebote). */
+  .gauge-needle {
+    transform-box: view-box;
+    transform-origin: 130px 126px;
+    transform: rotate(var(--needle));
+    animation: needle-in 1100ms cubic-bezier(0.2, 0.8, 0.2, 1) 150ms both;
+  }
+  @keyframes needle-in {
+    from { transform: rotate(0deg); }
+  }
+  .times-fill {
+    transform-origin: left center;
+    animation: fill-in 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  @keyframes fill-in {
+    from { transform: scaleX(0); }
+  }
+  /*
+   * Cifras con protagonismo: montos y cantidades en la tipografía de cartel, con trazo de
+   * resaltador debajo (como quien marca un recibo). `.fig-red` subraya en rojo lo que se pagó
+   * de más; `--fig-marker` cambia el color del resaltador sobre fondos amarillos o rojos.
+   */
+  .fig {
+    --fig-marker: var(--color-yellow);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.2em;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    font-variant-numeric: tabular-nums;
+    /* Solo se parte si no cabe (pantallas de 320 px con montos de miles de millones). */
+    overflow-wrap: anywhere;
+    padding: 0 0.14em;
+    background-image: linear-gradient(transparent 55%, var(--fig-marker) 55%, var(--fig-marker) 95%, transparent 95%);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .fig-red {
+    color: var(--color-red-text);
+    background-image: none;
+    padding: 0;
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-red);
+    text-decoration-thickness: 0.14em;
+    text-underline-offset: 0.16em;
+  }
+  .on-yellow .fig { --fig-marker: #ffffff; }
+  .on-dark .fig { --fig-marker: transparent; text-decoration: underline 0.12em var(--color-yellow); text-underline-offset: 0.16em; }
+  .prose-plain p + p { margin-top: 0.875rem; }
+  .prose-plain ul { list-style: disc; padding-left: 1.25rem; }
+  .prose-plain ul > li + li { margin-top: 0.375rem; }
+  .prose-plain h2 { font-size: 1.75rem; margin-top: 2rem; margin-bottom: 0.625rem; }
+  .prose-plain h3 { font-size: 1.125rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+  .prose-plain a { color: var(--color-navy); text-decoration: underline; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .btn-primary { background: #8f0f0f; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  body { color: #000; }
+  a { color: #000; }
+  .card, .card-raise { box-shadow: none; border-color: #999; break-inside: avoid; }
+}
+
+/* Firma visual: borde perforado de recibo (la compra pública como un recibo que cualquiera puede leer). */
+@layer components {
+  .receipt-edge {
+    --tooth: 14px;
+    -webkit-mask:
+      radial-gradient(circle at 50% 100%, transparent 6px, #000 6.5px) bottom / var(--tooth) 8px repeat-x,
+      linear-gradient(#000, #000) top / 100% calc(100% - 7.5px) no-repeat;
+    mask:
+      radial-gradient(circle at 50% 100%, transparent 6px, #000 6.5px) bottom / var(--tooth) 8px repeat-x,
+      linear-gradient(#000, #000) top / 100% calc(100% - 7.5px) no-repeat;
+    padding-bottom: 1.75rem;
+  }
+}

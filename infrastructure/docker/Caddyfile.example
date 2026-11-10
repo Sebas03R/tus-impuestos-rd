@@ -1,0 +1,12 @@
+# Ejemplo de proxy inverso con HTTPS automático (Let's Encrypt) para self-hosting.
+# Reemplace el dominio y ejecute: caddy run --config Caddyfile
+tusimpuestos.example.do {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+	reverse_proxy web:3000
+}

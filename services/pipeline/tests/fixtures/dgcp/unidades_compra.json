@@ -1,0 +1,82 @@
+{
+ "code": 200,
+ "hasError": false,
+ "payload": {
+  "content": [
+   {
+    "codigo_unidad_compra": 4,
+    "unidad_compra": "Ministerio de Hacienda",
+    "acronimo": "MINISTERIO HACIENDA",
+    "fecha_registro": "2005-11-10T15:16:00Z",
+    "tipo": "Institución",
+    "estado": "ACTIVA",
+    "direccion": null,
+    "telefono": null,
+    "correo": null,
+    "correo_notificaciones": null,
+    "codigo_capitulo": "20260205000000",
+    "implementada": "true"
+   },
+   {
+    "codigo_unidad_compra": 174,
+    "unidad_compra": "Ministerio de la Mujer",
+    "acronimo": "MMUJER",
+    "fecha_registro": "2006-08-21T12:40:00Z",
+    "tipo": "Institución",
+    "estado": "ACTIVA",
+    "direccion": null,
+    "telefono": null,
+    "correo": null,
+    "correo_notificaciones": null,
+    "codigo_capitulo": "20260215000000",
+    "implementada": "true"
+   },
+   {
+    "codigo_unidad_compra": 180,
+    "unidad_compra": "Dirección General de Seguridad de Tránsito y Transporte Terrestre",
+    "acronimo": "DIGESETT",
+    "fecha_registro": "2006-10-11T22:10:00Z",
+    "tipo": "Institución",
+    "estado": "ACTIVA",
+    "direccion": null,
+    "telefono": null,
+    "correo": null,
+    "correo_notificaciones": null,
+    "codigo_capitulo": "20260202000000",
+    "implementada": "true"
+   },
+   {
+    "codigo_unidad_compra": 671,
+    "unidad_compra": "Universidad Autonoma de Santo Domingo",
+    "acronimo": "UASD",
+    "fecha_registro": "2009-09-16T14:47:00Z",
+    "tipo": "Institución",
+    "estado": "ACTIVA",
+    "direccion": null,
+    "telefono": null,
+    "correo": null,
+    "correo_notificaciones": null,
+    "codigo_capitulo": "20265128000000",
+    "implementada": "true"
+   },
+   {
+    "codigo_unidad_compra": 989,
+    "unidad_compra": "Centro de Gastroenterología Doctor Luis Eduardo Aybar",
+    "acronimo": "CGLEA",
+    "fecha_registro": "2017-01-13T15:40:22.7909141Z",
+    "tipo": "Hospital",
+    "estado": "ACTIVA",
+    "direccion": null,
+    "telefono": null,
+    "correo": null,
+    "correo_notificaciones": null,
+    "codigo_capitulo": "20265180000000",
+    "implementada": "true"
+   }
+  ]
+ },
+ "page": 1,
+ "limit": 1000,
+ "totalResults": 5,
+ "pages": 1
+}

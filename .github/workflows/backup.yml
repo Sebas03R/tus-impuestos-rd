@@ -1,0 +1,37 @@
+name: Copia de seguridad
+
+# Volcado diario cifrado con age (solo quien tiene la clave privada puede leerlo).
+# Se guarda como artefacto de Actions durante 30 días. Ver docs/backups.md.
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Volcado (pg_dump 17) y cifrado
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_DIRECT || secrets.DATABASE_URL }}
+          AGE_RECIPIENT: ${{ secrets.BACKUP_AGE_PUBKEY }}
+        run: |
+          set -euo pipefail
+          test -n "$AGE_RECIPIENT" || { echo "Falta el secreto BACKUP_AGE_PUBKEY"; exit 1; }
+          sudo apt-get update -qq && sudo apt-get install -y -qq age
+          URL="${DATABASE_URL/postgresql+psycopg:/postgresql:}"
+          STAMP=$(date -u +%Y%m%dT%H%MZ)
+          docker run --rm --network host postgres:17-alpine \
+            pg_dump --format=custom --no-owner --no-privileges --schema=public "$URL" > dump.pgc
+          age -r "$AGE_RECIPIENT" -o "tirds-$STAMP.pgc.age" dump.pgc
+          rm dump.pgc
+          ls -la
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tirds-backup
+          path: tirds-*.pgc.age
+          retention-days: 30

@@ -1,0 +1,56 @@
+[project]
+name = "tirds"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Tus Impuestos RD" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "alembic>=1.20.1",
+    "argon2-cffi>=25.1.0",
+    "httpx>=0.28.1",
+    "numpy>=2.5.4",
+    "pandas>=3.1.1",
+    "psycopg[binary]>=3.3.8",
+    "pydantic>=2.14.3",
+    "pydantic-settings>=2.16.2",
+    "python-calamine>=0.9.1",
+    "rapidfuzz>=3.14.6",
+    "sqlalchemy>=2",
+    "structlog>=26.1.0",
+    "typer>=0.29.0",
+]
+
+[project.scripts]
+tirds = "tirds:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.1",
+    "pytest>=9.2.0",
+    "pytest-cov>=7.1.0",
+    "respx>=0.23.1",
+    "ruff>=0.17.4",
+]
+
+[tool.ruff]
+line-length = 125
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM"]
+ignore = ["S101", "S608", "S311", "B008", "E501", "SIM108"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S", "B"]
+"alembic/**" = ["E", "I", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

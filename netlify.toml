@@ -1,0 +1,12 @@
+# Despliegue del sitio (apps/web) en Netlify. El pipeline de datos corre en GitHub Actions.
+[build]
+  base = "apps/web"
+  command = "pnpm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

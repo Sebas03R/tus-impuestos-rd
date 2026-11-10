@@ -1,0 +1,65 @@
+name: Sincronización DGCP + análisis
+
+# La DGCP actualiza su repositorio a las 00:00, 07:00, 14:00 y 21:00 (hora dominicana, UTC-4).
+# Corremos 45 minutos después de cada ventana. Domingo: barrido completo de la ventana.
+on:
+  schedule:
+    - cron: "45 1,4,11,18 * * *"
+    - cron: "0 7 * * 0"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "incremental | sweep | backfill"
+        default: incremental
+        required: true
+      analyze:
+        description: "Ejecutar el motor de análisis al terminar"
+        default: "true"
+        required: true
+
+concurrency:
+  group: sync-dgcp
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    env:
+      APP_ENV: production
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      SYNC_SINCE: ${{ vars.SYNC_SINCE || '2025-01-01' }}
+      # Ventana móvil: el barrido del domingo borra lo más antiguo para caber en el plan gratuito.
+      RETENTION_MONTHS: ${{ vars.RETENTION_MONTHS }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+    defaults:
+      run:
+        working-directory: services/pipeline
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen --no-dev
+      - name: Migraciones
+        run: uv run tirds db upgrade
+      - name: Sincronizar DGCP
+        run: |
+          MODE="${{ github.event.inputs.mode }}"
+          if [ -z "$MODE" ]; then
+            if [ "${{ github.event.schedule }}" = "0 7 * * 0" ]; then MODE=sweep; else MODE=incremental; fi
+          fi
+          uv run tirds sync dgcp --mode "$MODE" --trigger "${{ github.event_name }}"
+      - name: Motor de análisis
+        if: ${{ github.event.inputs.analyze != 'false' }}
+        run: uv run tirds analyze --details 150
+      - name: Estado
+        if: always()
+        run: uv run tirds status && uv run tirds db size

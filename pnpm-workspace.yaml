@@ -1,0 +1,8 @@
+packages:
+  - apps/*
+  - packages/*
+  - tests/e2e
+allowBuilds:
+  sharp: true
+  unrs-resolver: true
+  "@node-rs/argon2": true

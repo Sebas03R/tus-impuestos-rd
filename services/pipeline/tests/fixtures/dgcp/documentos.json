@@ -1,0 +1,106 @@
+{
+ "code": 200,
+ "hasError": false,
+ "payload": {
+  "content": [
+   {
+    "nombre_documento": "AI-0006 Sellada LPN-2025-0003).pdf",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": "Copia de los Estatutos",
+    "fecha_carga_archivo": "2025-03-03T21:31:17.3050478Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10279710&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "CERTIFICADO LPN-2025-0003.pdf",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": "Certificado de Apropiación Presupuestaria",
+    "fecha_carga_archivo": "2025-03-03T21:31:17.6019234Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10279712&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "Compromiso-etico-de-proveedores.docx",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": "Otro",
+    "fecha_carga_archivo": "2025-03-03T21:31:18.1644223Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10279714&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "CONVOCATORIA REF. UASD-CCC-LPN-2025-0003.pdf",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": "Otro",
+    "fecha_carga_archivo": "2025-03-03T21:31:18.3050493Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10279715&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "Modelo de Contrato.docx",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": "Otro",
+    "fecha_carga_archivo": "2025-03-03T21:31:18.8519245Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10279719&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "SNCC_F033_Of_Economica (1).docx",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": "Otro",
+    "fecha_carga_archivo": "2025-03-03T21:31:19.3988017Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10279722&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "SNCC_F034_Presentacion_de_Oferta.docx",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": "Otro",
+    "fecha_carga_archivo": "2025-03-03T21:31:19.4613Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10279723&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "SNCC_F042_Informacion_Oferente.docx",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": "Otro",
+    "fecha_carga_archivo": "2025-03-03T21:31:19.5394277Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10279724&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "ANEXO I.pdf",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": "Otro",
+    "fecha_carga_archivo": "2025-03-03T21:49:55.4659141Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10279725&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "PLIEGO LPN-2025-0003 - FINAL.pdf",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": "Especificaciones/Ficha Técnica",
+    "fecha_carga_archivo": "2025-03-03T21:49:55.6221637Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10279726&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "SOLICITUD LPN-2025-0003 (1).pdf",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": "Solicitud Compra o Contratación",
+    "fecha_carga_archivo": "2025-03-03T21:52:35.909161Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10279727&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "AI-0006 Sellada LPN-2025-0003).pdf",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": "Dictámen Jurídico Pliego",
+    "fecha_carga_archivo": "2025-03-03T21:53:26.6072357Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10279728&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "Certificacion de Existencia de Fondos UASD-CCC-LPN-2025-0003 - ENMIENDA.pdf",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": null,
+    "fecha_carga_archivo": "2025-04-08T21:51:53.3565151Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10502868&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   },
+   {
+    "nombre_documento": "Enmienda No.01 (UASD-CCC-LPN-2025-0003)_...pdf",
+    "codigo_proceso": "UASD-CCC-LPN-2025-0003",
+    "tipo_documento": null,
+    "fecha_carga_archivo": "2025-04-08T22:20:39.9205475Z",
+    "url_documento": "https://comunidad.comprasdominicana.gob.do/Public/Archive/RetrieveFile/Index?DocumentId=10502869&InCommunity=False&InPaymentGateway=False&DocUniqueIdentifier="
+   }
+  ]
+ }
+}

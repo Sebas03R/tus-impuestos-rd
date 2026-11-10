@@ -1,0 +1,108 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline:
+    name: Pipeline (Python)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: tirds
+          POSTGRES_PASSWORD: tirds_local_only
+          POSTGRES_DB: tirds
+        ports: ["54330:5432"]
+        options: >-
+          --health-cmd "pg_isready -U tirds" --health-interval 5s --health-timeout 5s --health-retries 20
+    defaults:
+      run:
+        working-directory: services/pipeline
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: uv run ruff check src tests
+      - run: uv run ruff format --check src tests
+      - name: Pruebas (unidad, motor, integración)
+        env:
+          TEST_ADMIN_URL: postgresql://tirds:tirds_local_only@localhost:54330/postgres
+        run: uv run pytest
+
+  web:
+    name: Web (Next.js)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -C apps/web lint
+      - run: pnpm -C apps/web typecheck
+      - run: pnpm -C apps/web test
+      - name: Build
+        env:
+          DATABASE_URL_WEB: postgres://web_app:unused@localhost:5432/unused
+          SESSION_SECRET: ci-only-secret-value-with-32-chars-min
+          SITE_URL: http://localhost:3000
+        run: pnpm -C apps/web build
+
+  e2e:
+    name: E2E (Playwright + axe, datos ficticios)
+    runs-on: ubuntu-latest
+    needs: [pipeline, web]
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: tirds
+          POSTGRES_PASSWORD: tirds_local_only
+          POSTGRES_DB: tirds
+        ports: ["54330:5432"]
+        options: >-
+          --health-cmd "pg_isready -U tirds" --health-interval 5s --health-timeout 5s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Rol web y datos ficticios
+        env:
+          PGPASSWORD: tirds_local_only
+        run: |
+          psql -h localhost -p 54330 -U tirds -d postgres -c "CREATE ROLE web_app LOGIN PASSWORD 'web_app_local_only'"
+          ./scripts/seed-demo.sh
+      - run: pnpm install --frozen-lockfile
+      - name: Build web
+        env:
+          DATABASE_URL_WEB: postgres://web_app:web_app_local_only@localhost:54330/tirds_demo
+          SESSION_SECRET: ci-only-secret-value-with-32-chars-min
+          SITE_URL: http://localhost:3011
+        run: pnpm -C apps/web build
+      - run: pnpm -C tests/e2e exec playwright install --with-deps chromium
+      - name: Playwright (360 px y 1280 px + axe)
+        env:
+          E2E_DATABASE_URL_WEB: postgres://web_app:web_app_local_only@localhost:54330/tirds_demo
+          E2E_DATABASE_URL_OWNER: postgres://tirds:tirds_local_only@localhost:54330/tirds_demo
+        run: pnpm e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: tests/e2e/playwright-report
+          retention-days: 7

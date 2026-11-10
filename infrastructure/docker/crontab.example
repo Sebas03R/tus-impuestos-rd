@@ -1,0 +1,6 @@
+# Self-hosting: cron del host que reemplaza a GitHub Actions (hora UTC).
+45 1,4,11,18 * * *  cd /srv/tus-impuestos-rd && docker compose --profile full run --rm pipeline sh -c "tirds sync dgcp && tirds analyze"
+0 7 * * 0           cd /srv/tus-impuestos-rd && docker compose --profile full run --rm pipeline tirds sync dgcp --mode sweep
+30 5 * * *          cd /srv/tus-impuestos-rd && docker compose --profile full run --rm pipeline tirds sync mapainversiones
+0 14 * * 1-5        cd /srv/tus-impuestos-rd && docker compose --profile full run --rm pipeline tirds sync bcrd
+0 6 * * 1           cd /srv/tus-impuestos-rd && docker compose --profile full run --rm pipeline tirds sync hacienda
